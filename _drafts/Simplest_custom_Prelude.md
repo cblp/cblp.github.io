@@ -1,0 +1,12 @@
+- How to Use
+  - Add module `Prelude`
+  - Symlink to every package
+  - Add to every component
+- How to Write
+  - CPP
+- Advantages
+  - Minimalistic
+  - No extra dependencies
+- Drawbacks
+  - ghci
+  - Symlinks on Windows
