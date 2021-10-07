@@ -17,7 +17,7 @@ and how OR-Set copes with them.
 This article uses [RON data model and syntax](https://replicated.cc/)
 to describe distributed objects.
 
-## Initial problem
+## Sample problem
 
 Let's take an example of such object:
 
@@ -29,7 +29,7 @@ blog_post = {
 }
 ```
 
-## LWW solution
+## LWW approach
 
 This is how we may represent it as a set of CRDT (RON) objects:
 
@@ -45,24 +45,25 @@ This is how we may represent it as a set of CRDT (RON) objects:
     'text' 100+Alpha;
 ```
 
-Now we can mutate it. Let's change title:
+Now we can mutate it. Let replica Beta change its title:
 
 ```js
 // operation
 @300+Beta :200+Alpha 'title' 'fire principle';
 
-// result (dropping insignificant ops)
-@200+Alpha  :lww,
-@201+Alpha  'author_id' 1324632589,
-@300+Beta   'title' 'fire principle',
-@203+Alpha  'text' 100+Alpha;
+// result
+    @200+Alpha  :lww,
+    @201+Alpha  'author_id' 1324632589,
+//  @202+Alpha  'title' 'yard accident', // shadowed by LWW
+    @300+Beta   'title' 'fire principle',
+    @203+Alpha  'text' 100+Alpha;
 ```
 
 ## The new field issue
 
 Now let's suppose the schema of data in our happlication has changed,
 and we want to add a new field and also want to keep all existing data.
-Let the new field be `tags` with type of set of strings,
+Let the new field be `tags` containing set of strings,
 and this set must be mutable, so we create an OR-Set object for it.
 If there's no such field in a blog post, the tag set is considered empty.
 
@@ -77,7 +78,9 @@ If there's no such field in a blog post, the tag set is considered empty.
 ```
 
 Independently of Gamma, replica Delta wants to do the same,
-using an old version of the object, which doesn't have tags yet.
+using an old version
+(we can describe it with version vector `203+Alpha 300+Beta`) of the object,
+which doesn't have `tags` yet.
 So, Delta creates another OR-Set object.
 
 ```js
@@ -97,7 +100,7 @@ Then, they exchange ops and merge, and come to a single version:
     @201+Alpha  'author_id' 1324632589,
     @300+Beta   'title' 'fire principle',
     @203+Alpha  'text' 100+Alpha,
-//  @500+Delta  'tags' 400+Delta, // shadowed due to LWW
+//  @500+Delta  'tags' 400+Delta, // shadowed by LWW
     @500+Gamma  'tags' 400+Gamma;
 ```
 
@@ -159,8 +162,8 @@ blog_post = {
 
 Each key has a set of values, because the we based our structure on a multimap.
 
-Here we also can voluntarily drop some data from CRDT
-using application level information:
+Here we also can voluntarily drop some information from CRDT
+using application-level knowledge on how fields can be mutated:
 
 ```js
 blog_post.author_id.last()
@@ -171,7 +174,8 @@ blog_post.title.last()
 ```
 
 What can we do with sets of complex CRDT objects?
-Do you remember CRDT is a semigroup? Yes, we can merge arbitrary objects!
+Do you remember CRDT is a semigroup? (RON objects are even monoids!)
+Yes, we can merge arbitrary objects!
 
 ```js
 blog_post.text.merge()
