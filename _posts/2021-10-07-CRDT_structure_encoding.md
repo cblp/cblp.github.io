@@ -21,7 +21,7 @@ to describe distributed objects.
 
 Let's take an example of such object:
 
-```rs
+```js
 blog_post = {
     author_id: 1324632589,
     title: "yard accident",
@@ -33,7 +33,7 @@ blog_post = {
 
 This is how we may represent it as a set of CRDT (RON) objects:
 
-```rs
+```js
 // text
 @100+Alpha :rga,
     "sick charge joined mood...";
@@ -47,7 +47,7 @@ This is how we may represent it as a set of CRDT (RON) objects:
 
 Now we can mutate it. Let replica Beta change its title:
 
-```rs
+```js
 // operation
 @300+Beta :200+Alpha 'title' 'fire principle';
 
@@ -67,7 +67,7 @@ Let the new field be `tags` containing set of strings,
 and this set must be mutable, so we create an OR-Set object for it.
 If there's no such field in a blog post, the tag set is considered empty.
 
-```rs
+```js
 // replica Gamma creates a new set for tags
 @400+Gamma :set,
     'storm',
@@ -83,7 +83,7 @@ using an old version
 which doesn't have `tags` yet.
 So, Delta creates another OR-Set object.
 
-```rs
+```js
 // replica Delta creates a new set for tags
 @400+Delta :set,
     'storm',
@@ -95,7 +95,7 @@ So, Delta creates another OR-Set object.
 
 Then, they exchange ops and merge, and come to a single version:
 
-```rs
+```js
     @200+Alpha  :lww,
     @201+Alpha  'author_id' 1324632589,
     @300+Beta   'title' 'fire principle',
@@ -119,7 +119,7 @@ Let's walk through the same operations, but with OR-Map (or set, on low level):
 
 Initial representation is the same, except the type:
 
-```rs
+```js
 // text
 @100+Alpha :rga,
     "sick charge joined mood...";
@@ -133,7 +133,7 @@ Initial representation is the same, except the type:
 
 And the final state of oplog is almost the same:
 
-```rs
+```js
     @200+Alpha  :set,
     @201+Alpha              'author_id' 1324632589,
 //  @202+Alpha              'title' 'yard accident', // tombstoned by 300+Beta
@@ -148,7 +148,7 @@ But now we don't lose anything!
 
 Raw object view:
 
-```rs
+```js
 blog_post = {
     author_id: {1324632589},
     title: {"fire principle"},
@@ -165,7 +165,7 @@ Each key has a set of values, because the we based our structure on a multimap.
 Here we also can voluntarily drop some information from CRDT
 using application-level knowledge on how fields can be mutated:
 
-```rs
+```js
 blog_post.author_id.last()
 = 1324632589
 
@@ -177,7 +177,7 @@ What can we do with sets of complex CRDT objects?
 Do you remember CRDT is a semigroup? (RON objects are even monoids!)
 Yes, we can merge arbitrary objects!
 
-```rs
+```js
 blog_post.text.merge()
 = "sick charge joined mood..."
 
@@ -190,7 +190,7 @@ Now all needed information is saved. And we have a convenient way to access it.
 And it may be even more convenient!
 If we declare field access strategies in a separate place:
 
-```rs
+```js
 struct BlogPost {
     author_id: LWW(Integer),
     title: LWW(String),
