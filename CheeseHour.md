@@ -5,7 +5,43 @@ title: CheeseHour token
 
 <table>
 
-  <tr><td><h1>Conditions (EN)</h1></td><td><h1>Условия (RU)</h1></td></tr>
+  <tr><td><h1>EN</h1></td><td><h1>RU</h1></td></tr>
+
+  <tr><td><h2>Token credentials</h2></td><td><h2>Реквизиты токена</h2></td></tr>
+
+  <tr>
+    <td colspan=2>
+      Stellar:
+      <a  href="https://stellar.expert/explorer/public/asset/CheeseHour-GBRGCJOIT65M723JZJ7TONNFRAG5RTAZTESQ5OHI6DDN4LIO2CV3AWUA"
+          style="font-family: monospace;">
+        CheeseHour-GBRGCJOIT65M723JZJ7TONNFRAG5RTAZTESQ5OHI6DDN4LIO2CV3AWUA
+      </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Minting of tokens in other networks is possible on demand.</td>
+    <td>Возможна чеканка токенов в других сетях по запросу.</td>
+  </tr>
+
+  <tr><td><h2>Expertise</h2></td><td><h2>Услуги</h2></td></tr>
+
+  <tr>
+    <td>
+      <ul>
+        <li>Software development</li>
+        <li>Teaching programming and mathematics</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Раработка программного обеспечения</li>
+        <li>Преподавание программирования и математики</li>
+      </ul>
+    </td>
+  </tr>
+
+  <tr><td><h2>Conditions</h2></td><td><h2>Условия</h2></td></tr>
 
   <tr>
     <td>
