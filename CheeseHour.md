@@ -7,6 +7,13 @@ title: CheeseHour token
 
   <tr><td><h1>EN</h1></td><td><h1>RU</h1></td></tr>
 
+  <tr><td><h2>Description</h2></td><td><h2>Описание</h2></td></tr>
+
+  <tr>
+    <td>Here's a token supported by an hour of my work for you.</td>
+    <td>Токен, обеспеченный часом моего труда для вас.</td>
+  </tr>
+
   <tr><td><h2>Token credentials</h2></td><td><h2>Реквизиты токена</h2></td></tr>
 
   <tr>
@@ -45,18 +52,24 @@ title: CheeseHour token
 
   <tr>
     <td>
-      1. When hiring the Contractor,
-      a holder of the token has priority before any non-holder.
+      1. A holder of the token can hire the Contractor
+      and pay 1 token for each work hour.
     </td>
     <td>
-      1. При найме Исполнителя
-      держатель токена имеет приоритет перед остальными.
+      1. Держатель токена может нанять Исполнителя,
+      заплатив 1 токен за каждый час работы.
     </td>
   </tr>
 
   <tr>
-    <td>2. The Contractor has right to decline a contract.</td>
-    <td>2. Исполнитель может отказаться от заключения договора.</td>
+    <td>
+      2. The Contractor has right to decline a contract.
+      In that case compensation is negotiated individually.
+    </td>
+    <td>
+      2. Исполнитель может отказаться от заключения договора.
+      Компенсация в таком случае обсуждается индивидуально.
+    </td>
   </tr>
 
   <tr>
