@@ -96,9 +96,12 @@ Same for executables, test-suites and benchmarks
 
 ## Module naming
 
-No ancient `Control`/`Data`/`Network` namespace.
+No ancient `Control`/`Data`/`Network` namespace prefixes.
 
 Main module of an executable/test-suite/benchmark is always `Main.hs` (sometimes `Main.lhs`).
 
 All other modules are in package namespace (`GAMMA.Text.Parser`) or in project-package one (`ALPHA.GAMMA.Text.Parser`).
 
+## Comments?
+
+https://t.me/haskell_and_curry/2
